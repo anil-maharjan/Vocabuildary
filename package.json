@@ -9,8 +9,11 @@
   "author": "Anil Maharjan",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "jquery": "^3.3.1",
+    "mongoose": "^5.3.13",
     "request": "^2.88.0"
   }
 }

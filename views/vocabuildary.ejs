@@ -1,0 +1,22 @@
+<% include ./partials/header %>
+
+<h1> Vocabulary builder </h1>
+
+<form action="/vocabuildary" method="POST">
+	<label> Word: </label>
+	<input type="text" placeholder="word" name="word[name]">
+
+	<label> Meaning: </label>
+	<textarea name="word[meaning]" rows="4" cols="50">
+	</textarea>
+
+	<label> Synonyms: </label>
+	<input type="text" placeholder="Synonyms" name="word[synonyms]"> 
+	
+	<label> Sentence: </label>
+	<textarea name="word[sentence]" rows="4" cols="50">
+	</textarea>
+
+	<button> Submit </button>
+
+</form>

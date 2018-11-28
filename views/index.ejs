@@ -1,1 +1,22 @@
-<h1> Vocabular builder </h1>
+<% include ./partials/header %>
+<h1> List Of Vocabulary </h1>
+
+
+<% words.forEach(function(word){ %>
+	<div class="container">
+		<p><strong> <%= word.name %> </strong></p>
+		<div class ="aboutWord">
+			<p> Def:- <%= word.meaning %> </p>
+			<p> Synonyms:- <%= word.synonym %> </p>
+			<p> Sentence:- <%= word.sentence %> </p> 
+		</div>
+		<button class="more"> More </button>
+		<form action="/unknown" method="POST">
+		<%= word.id %>
+			<input type="hidden" name="id" value="<%= word.id %>">
+			<button class="uBtn"> Add to unknown </button>
+		</form>
+	</div>
+<% }) %>
+
+<% include ./partials/footer %>

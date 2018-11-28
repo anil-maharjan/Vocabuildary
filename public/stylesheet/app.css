@@ -1,0 +1,17 @@
+label, button{
+	display: block;
+}
+
+input, textarea{
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}
+
+
+.aboutWord{
+	display: none;
+}
+
+.display{
+	display: block;
+}
