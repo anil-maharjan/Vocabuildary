@@ -5,3 +5,4 @@ $(".more").on("click", function(){
 // $(".uBtn").on("click", function(){
 // 	$(this).text("Added");
 // });	
+var rand = Math.floor(Math.random()*10);

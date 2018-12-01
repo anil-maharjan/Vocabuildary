@@ -1,17 +1,17 @@
-var mongoose = require("mongoose"),
-	Schema	 = mongoose.Schema;
+var mongoose = require("mongoose");
 
-var unknownSchema = new Schema({
+var unknownSchema = new mongoose.Schema({
 // uWords = unknown words
-		words: [{
-			wid: [{
-				type: Schema.Types.ObjectId,
-				ref: "Vocabulary"
-			}],
-				count: Number,
-				noOfSentence: Number,
-				sentence: [String]
-		}]
+				words: [{
+					_id:{
+						type: mongoose.Schema.Types.ObjectId,
+						ref: "Vocabulary"
+					},
+					count: Number,
+					noOfSentence: Number,
+					sentence: String
+				}]
+				
 })
 
 module.exports = mongoose.model("Unknown", unknownSchema);
