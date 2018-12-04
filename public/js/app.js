@@ -1,8 +1,10 @@
 $(".more").on("click", function(){
-	 $(this).prev('.aboutWord').toggleClass('display');
+	 $(this).prev('.aboutWord').toggleClass('abtWord');
 });
 
 // $(".uBtn").on("click", function(){
 // 	$(this).text("Added");
 // });	
-var rand = Math.floor(Math.random()*10);
+
+
+

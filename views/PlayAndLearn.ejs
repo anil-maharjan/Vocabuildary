@@ -1,5 +1,32 @@
+<% include ./partials/header %>
+
+
 <h1> Play And Learn </h1>
 
 <h4> Guess the correct meaning of the word given:- </h4>
 
+<h3> <%= R_name %> </h3>
 
+<% var i = 1 %>
+<% arrWords.forEach(function(each){ %>
+<li class="wordsList"><%= i %>) <%= each %> </li>
+
+<% i+=1; }) %>
+
+
+<div class="secret">
+	<h4>Word:- <%= R_name %> </h4>
+	<p>Definition:- <%= arrWords[R_index] %>
+</div>
+
+
+<form action="/learnNplay/next" method="POST">
+<input type = "hidden" name="uIndex" value= "<%= uIndex %>">
+<input type="hidden" name="rIndex" value = "<%= R_index %>" class="index">
+<input type = "hidden" name="clkIndex" value ="" class="clickedIndex"> 
+<input type = "hidden" name="rId" value = "<%= R_id %>">
+<button> Next </button>
+</form>
+
+<script type="text/javascript" src="/js/learn.js"></script>
+<% include ./partials/footer %>

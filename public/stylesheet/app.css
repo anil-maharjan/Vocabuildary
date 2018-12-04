@@ -12,6 +12,30 @@ input, textarea{
 	display: none;
 }
 
-.display{
+.abtWord{
 	display: block;
+}
+
+.wordsList{
+	list-style: none;
+}
+
+.wordsList:hover{
+	cursor: pointer;
+}
+
+.correct{
+	color: green;
+}
+
+.incorrect{
+	color: red;
+}
+
+.secret{
+	display: none;
+}
+
+.known{
+	color: green;
 }
