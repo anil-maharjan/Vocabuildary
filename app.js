@@ -8,6 +8,7 @@ var express 	  = require("express"),
 	LocalStrategy = require("passport-local"),
 	Unknown 	  = require("./model/unknown"),
 	User 		  = require("./model/user"),
+	Words 		  = require("./model/words"),
 	KnownWords    = require("./model/knownWords");
 
 // Requiring routes

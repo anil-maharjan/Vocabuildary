@@ -16,21 +16,27 @@ router.post("/register", function(req, res){
 			console.log(err)
 		}
 		passport.authenticate("local")(req, res, function(){
-			Unknown.create({}, function(err, uk){
+			Words.create({}, function(err, word){
 				if(err){
 					console.log(err);
-				}else{
-					KnownWords.create({}, function(err, kWords){
-						if(err){
-							console.log(err);
-						}else{
-							user.uid = uk._id;
-							user.kid = kWords._id;
-							user.save();
-						}
-					})
 				}
-			res.redirect("/");
+				Unknown.create({}, function(err, uk){
+					if(err){
+						console.log(err);
+					}else{
+						KnownWords.create({}, function(err, kWords){
+							if(err){
+								console.log(err);
+							}else{
+								user.uid = uk._id;
+								user.kid = kWords._id;
+								user.vid = word._id;
+								user.save();
+							}
+						})
+					}
+				res.redirect("/");
+				})
 			})
 		})
 	})
