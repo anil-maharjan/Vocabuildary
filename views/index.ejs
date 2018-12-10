@@ -1,25 +1,26 @@
 <% include ./partials/header %>
 
-<a href="/knownWords"> Known Words </a>
-<a href="/learnNplay"><button> Learn & Play </button> </a> 
-
-<h1> List Of Vocabulary </h1>
-
-
-<% words.forEach(function(word){ %>
-	<div class="container">
-		<p><strong> <%= word.name %> </strong></p>
-		<div class ="aboutWord">
-			<p> Def:- <%= word.meaning %> </p>
-			<p> Synonyms:- <%= word.synonym %> </p>
-			<p> Sentence:- <%= word.sentence %> </p> 
-			<input type="hidden" value= "<%= word.known %>>" class="flag">
-		</div>
-		<button class="more"> More </button>
-		<form action="/unknown" method="POST">	
-			<input type="hidden" name="id" value="<%= word.id %>">
-		</form>
+	<div class="jumbotron">
+		<h1 class="display-4">Welcome to Vocabuildary! </h1>
+		<p class="lead"> Build up your vocabulary by learning and playing at the same time... </p>
+		<hr class="my-4">
+		<p> Get ready to ace your communication game with eloquent words </p>
+		<p class="lead">
+			<button class="btn btn-primary btn-lg" href="#">Learn More</button>
+		</p>
 	</div>
-<% }) %>
+
+<% if(currentUser){ %>
+<div class="w-50 mx-auto">
+	<div class="mx-auto" style="display: table;">
+		<a href="/knownWords" class="btn btn-primary mr-1"> Known Words </a>
+		<a href="/learnNplay" class="btn btn-primary"> Learn & Play </a> 
+		<hr class="my-4">
+		<h1 class="text-center"> Vocabulary </h1>
+	</div>
+</div>
+
+<% } %>
+
 
 <% include ./partials/footer %>

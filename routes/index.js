@@ -2,18 +2,11 @@ var express	   = require("express"),
 	router	   = express.Router(),
 	mongoose   = require("mongoose"),
 	Schema	   = mongoose.Schema,
-	Vocabulary = require("../model/word"),
-	unknown	   = require("../model/unknown");
+	Unknown	   = require("../model/unknown");
 
 // Root Route
 router.get("/", function(req, res){
-	Vocabulary.find({}, function(err, foundWord){
-		if(err){
-			console.log(err);
-		}else{
-			res.render("index",{words: foundWord});
-		}
-	})
+		res.render("index");
 })
 
 

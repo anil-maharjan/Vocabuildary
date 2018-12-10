@@ -2,9 +2,9 @@ var mongoose = require("mongoose"),
 	Schema	 = mongoose.Schema;
 
 var knownWordsSchema = new Schema({
-	id:[{
+	kWords:[{
 		type: Schema.Types.ObjectId,
-		ref: "Vocabulary"
+		ref: "Unknown"
 	}]
 })
 

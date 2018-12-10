@@ -1,32 +1,36 @@
 <% include ./partials/header %>
 
+<div class="container-fluid bg-dark">
+	<div class="row">
+		<div class="col-md-4 mx-auto" style="display: table;">
+			<div class="my-5 p-3 xtraDesign" style="height:340px;">
+				<h4 class="text-center"><u> Click on the correct definition</u></h4>
+				<div class="ml-3 my-4">
+					<h5><%= R_name %> means > </h5>
 
-<h1> Play And Learn </h1>
+					<% var i = 1 %>
+					<% arrWords.forEach(function(each){ %>
+					<li class="wordsList listHover ml-2 my-2"><%= i %>) <%= each %> </li>
 
-<h4> Guess the correct meaning of the word given:- </h4>
+					<% i+=1; }) %>
+				</div>
 
-<h3> <%= R_name %> </h3>
-
-<% var i = 1 %>
-<% arrWords.forEach(function(each){ %>
-<li class="wordsList"><%= i %>) <%= each %> </li>
-
-<% i+=1; }) %>
-
-
-<div class="secret">
-	<h4>Word:- <%= R_name %> </h4>
-	<p>Definition:- <%= arrWords[R_index] %>
+				<form action="/learnNplay/next" method="POST">
+				<input type = "hidden" name="uIndex" value= "<%= uIndex %>">
+				<input type="hidden" name="rIndex" value = "<%= R_index %>" class="index">
+				<input type = "hidden" name="clkIndex" value ="" class="clickedIndex"> 
+				<input type = "hidden" name="rId" value = "<%= R_id %>">
+				<button class="btn btn-primary mt-3 float-right"> Next </button>
+				</form>
+			</div>
+		</div>
+		<div class="secret float-right col-md-4 text-white">
+			<div class="mt-5 pt-5">
+				<h4>Word:- <%= R_name %> </h4>
+				<p>Definition:- <%= arrWords[R_index] %>
+			</div>
+		</div>	
+	</div>
 </div>
-
-
-<form action="/learnNplay/next" method="POST">
-<input type = "hidden" name="uIndex" value= "<%= uIndex %>">
-<input type="hidden" name="rIndex" value = "<%= R_index %>" class="index">
-<input type = "hidden" name="clkIndex" value ="" class="clickedIndex"> 
-<input type = "hidden" name="rId" value = "<%= R_id %>">
-<button> Next </button>
-</form>
-
 <script type="text/javascript" src="/js/learn.js"></script>
 <% include ./partials/footer %>

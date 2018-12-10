@@ -4,6 +4,7 @@ var flag = true;
 $(".wordsList").on("click", function(e){
 	var b = $("li").index(e.target);
 	$(".clickedIndex").val(b);
+	$(this).removeClass("listHover");
 	if(flag){
 		if(a===b){
 			$(this).addClass("correct");

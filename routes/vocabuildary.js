@@ -2,7 +2,6 @@ var express	   = require("express"),
 	router	   = express.Router(),
 	mongoose   = require("mongoose"),
 	Schema	   = mongoose.Schema,
-	Vocabulary = require("../model/word"),
 	Unknown	   = require("../model/unknown");
 
 // To add New Words route
@@ -12,26 +11,17 @@ router.get("/", function(req, res){
 
 // To Add new Words and add it to unknown
 router.post("/", function(req, res){
-	var query = {_id: "5c058ca44ba8de0e18333042"};
-	Unknown.find(query, function(err, word){
+	console.log(req.user);
+	var query = {_id: req.user.uid};
+	console.log(query);
+	Unknown.findById(query, function(err, word){
 		if(err){
 			console.log(err);
 			}
-			Vocabulary.create(req.body.word, function(err, new_word){
-				if(err){
-					console.log(err);
-				}else{
-					var uWords = {
-						_id: mongoose.Types.ObjectId(new_word._id),
-						count: 1,
-						noOfSentence: 2,
-						sentence: ""
-					};
-					word[0].words.push(uWords);
-					word[0].save();						
+				console.log(word);
+					word.uWords.push(req.body.word);
+					word.save();						
 					res.redirect("/vocabuildary");
-				}
-			})
 	})
 })
 

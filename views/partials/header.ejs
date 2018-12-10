@@ -2,9 +2,26 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="/stylesheet/app.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 	<title>VocaBuildary</title>
 </head>
 <body>
-	<h1> VocaBuildary </h1>
+	<nav class="navbar bg-dark text-white">
+		<a class = "navbar-brand text-white" href="/"> <span class="border border-white rounded px-2">V</span> Vocabuildary </a>
+		
+		<% if(!currentUser){ %>
+		<div class="float-right">
+			<a class="mr-4 text-white" href="/login"> Login </a>
+			<a href="/register" class="text-white">Sign up </a>
+		</div>
+		<% }else{ %>
+		<div class="float-right">
+			<a class="mr-4 text-white" href="#"> Signed in as <%= currentUser.username %> </a>
+			<a href="/logout" class="text-white">Log Out </a>
+		</div>
+		<% } %>
+	</nav>
+
+
 

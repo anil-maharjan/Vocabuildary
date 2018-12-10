@@ -1,3 +1,4 @@
+
 label, button{
 	display: block;
 }
@@ -20,16 +21,21 @@ input, textarea{
 	list-style: none;
 }
 
-.wordsList:hover{
+.listHover:hover{
 	cursor: pointer;
+	background: rgb(171, 235, 198);
+	border-radius: 7px;
 }
 
+
 .correct{
-	color: green;
+	border-radius: 7px;
+	background: rgb(88, 214, 141);
 }
 
 .incorrect{
-	color: red;
+	border-radius: 7px;
+	background: rgb(192, 57, 43);
 }
 
 .secret{
@@ -38,4 +44,10 @@ input, textarea{
 
 .known{
 	color: green;
+}
+
+.xtraDesign{
+	background: rgb(209, 242, 235);
+	border-left: 6px solid rgb(52, 152, 219);
+	border-radius: 5px;
 }
