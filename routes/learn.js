@@ -70,6 +70,9 @@ router.post("/next", function(req, res){
 			if(req.body.rIndex === req.body.clkIndex)
 			{	
 				var id = mongoose.Types.ObjectId(req.body.rId);
+				var obj1 = {
+					words: id
+				};
 				var count = foundUk.uWords[req.body.uIndex].count - 1;
 				foundUk.uWords[req.body.uIndex].count-=1;
 				foundUk.save();
@@ -77,8 +80,7 @@ router.post("/next", function(req, res){
 					KnownWords.find({}, function(err, foundK){
 						if(err)
 							console.log(err);
-						console.log(foundK);
-						foundK[0].kWords.push(id);
+						foundK[0].kWords.push(obj1);
 						foundK[0].save();
 					})
 				}

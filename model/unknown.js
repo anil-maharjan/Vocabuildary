@@ -4,6 +4,7 @@ var mongoose = require("mongoose"),
 var unknownSchema = new mongoose.Schema({
 // uWords =  words
 	uWords: [{
+		_id: Schema.Types.ObjectId,
 		name: String,
 		meaning: String,
 		synonyms: String,

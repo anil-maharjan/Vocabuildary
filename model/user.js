@@ -10,10 +10,12 @@ var userSchema = new Schema({
 		type: Schema.Types.ObjectId,
 		ref: "Unknown"
 	},
+	// knownwords id
 	kid:{
 		type: Schema.Types.ObjectId,
 		ref: "KnownWords"
 	},
+	// vocabulary id
 	vid:{
 		type: Schema.Types.ObjectId,
 		ref: "Words"

@@ -2,6 +2,7 @@ var express  = require("express"),
 	router	 = express.Router(),
 	passport = require("passport"),
 	User	 = require("../model/user"),
+	Words 	 = require("../model/words"),
 	Unknown	 = require("../model/unknown"),
 	KnownWords = require("../model/knownWords");             
 
