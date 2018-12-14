@@ -1,5 +1,11 @@
 <% include ./partials/header %>
 
+<% if(error && error.length){ %>
+	<div class = "container alert alert-danger mt-2 p-1 pl-2" >
+		<p> <%= error %>  </p>
+	</div>
+<% } %>
+
 <form action="/login" method="POST">
 	<input type="text" name="username" placeholder="Username">
 	<input type="password" name="password" placeholder="Password">

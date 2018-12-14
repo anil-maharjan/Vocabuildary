@@ -17,27 +17,21 @@ router.post("/register", function(req, res){
 			console.log(err)
 		}
 		passport.authenticate("local")(req, res, function(){
-			Words.create({}, function(err, word){
+			Unknown.create({}, function(err, uk){
 				if(err){
 					console.log(err);
+				}else{
+					KnownWords.create({}, function(err, kWords){
+						if(err){
+							console.log(err);
+						}else{
+							user.uid = uk._id;
+							user.kid = kWords._id;
+							user.save();
+						}
+					})
 				}
-				Unknown.create({}, function(err, uk){
-					if(err){
-						console.log(err);
-					}else{
-						KnownWords.create({}, function(err, kWords){
-							if(err){
-								console.log(err);
-							}else{
-								user.uid = uk._id;
-								user.kid = kWords._id;
-								user.vid = word._id;
-								user.save();
-							}
-						})
-					}
 				res.redirect("/");
-				})
 			})
 		})
 	})
@@ -55,6 +49,7 @@ router.post("/login", passport.authenticate("local", {
 
 router.get("/logout", function(req, res, next){
 	req.logout();
+	req.flash("success", "Logged you Out");
 	res.redirect("/");
 })
 

@@ -2,13 +2,10 @@ var mongoose = require("mongoose"),
 	Schema	 = mongoose.Schema;
 
 var knownWordsSchema = new Schema({
-	kWords:[{
-		_id: false,
-		words:{
+	words:[{
 			type: Schema.Types.ObjectId,
-			ref: "Words.words"
-		}
-	}]
+			ref: "Words"
+		}]
 })
 
 module.exports = mongoose.model("KnownWords", knownWordsSchema);

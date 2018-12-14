@@ -1,91 +1,79 @@
 var express	   = require("express"),
+	//Express Routing acts as a middleware and all request goes through this
 	router	   = express.Router(),
 	mongoose   = require("mongoose"),
 	Schema	   = mongoose.Schema,
-	KnownWords = require("../model/knownWords");
+	middleware = require('../middleware'),
+	Words 	   = require("../model/words"),
+	KnownWords = require("../model/knownWords"),
 	Unknown	   = require("../model/unknown");
 
-	 		//to get a random value between 0 and 3 which will be the right words index
-
-router.get("/", function(req, res){
-	console.log(req.user);
+// Learn And Play route
+router.get("/", middleware.isLoggedIn, function(req, res){
+	var rDef, rName, arrLength, randIndex, rand2, rId, i=0, arrWords=[];
 	var query = { _id: req.user.uid };
-			//If there are no words this line will give an error because words will be undefined solve this later
-			// Add it to Known documents
-		Unknown.findByIdAndUpdate(query, {$pull: {"uWords": {count: 0}}}, function(err, updatedUk){
-  			if(err){
-  				console.log(err)
-  			}
-  			});
-
+	//If there are no words this line will give an error because words will be undefined solve this later
+	Unknown.findByIdAndUpdate(query, {$pull: {"uWords": {count: 0}}}, function(err, updatedUk){
+			if(err)
+				console.log(err);
 		Unknown.findById(query, function(err, ukWords){
-	 		if(err){
-	 			console.log(err);
-	 		} 
-	 		console.log(ukWords);
-			var arrLength;
-			arrLength = ukWords.uWords.length;
-			console.log(arrLength);
-			if(arrLength<4){
-				return res.redirect("/vocabuildary");
-			}
-	 		var i=-1, flag = true, arrWords = [], rand2 = Math.floor(Math.random()*4);
-			 	while(arrWords.length<4){
-			 		var rand = Math.floor(Math.random()*arrLength); //get a random meaning from 0 - 9
-			 		console.log(rand);
-			 		var def = ukWords.uWords[rand].meaning;
-			 		console.log(def);
+ 		if(err){
+ 			console.log(err);
+ 		} 
+
+		arrLength = ukWords.uWords.length;
+		if(arrLength<4)
+			return res.redirect("/vocabuildary");
+		randIndex = Math.floor(Math.random()*arrLength);
+ 		rand2 	  = Math.floor(Math.random()*4);
+ 		rId 	  = ukWords.uWords[randIndex]._id;
+ 		query1    = { _id: req.user.uid };
+ 		Unknown.find(query1).populate('uWords._id').exec(function(err, newArr){
+ 			rDef  = newArr[0].uWords[randIndex]._id.meaning;
+ 			rName = newArr[0].uWords[randIndex]._id.name;
+	 		Words.find({}, function(err, newWord){
+		 		while(arrWords.length<4){
+ 					rand = Math.floor(Math.random()*arrLength); //get a random meaning from 0 - 9
+			 		def = newWord[rand].meaning;
+			 		if(def === rDef)
+			 			continue;
+			 		if(rand2===i)
+			 			def=rDef;
 			 		if(arrWords.indexOf(def)=== -1){
 			 			arrWords.push(def);
 			 			i++;	
 			 		}
-			 		if(flag===true){
-			 			if(rand2 === i)
-			  			{
-			 				var unknownIndex = rand;
-			 				var rightId = ukWords.uWords[rand]._id;
-			 				var rightName = ukWords.uWords[rand].name;
-			 				flag = false;
-			 			}
-	 				}
-	 			}
-	 	// R stands for Right
-	 	res.render("PlayAndLearn", {R_name: rightName, uIndex: unknownIndex, R_id: rightId, R_index: rand2, arrWords: arrWords})
-	})
+ 				}
+ 			res.render("PlayAndLearn", {rName: rName, uIndex: randIndex, rId: rId, rIndex: rand2, arrWords: arrWords})
+			})
+		}) 
+	})	
+	})	 		
 })
 
-// 
-
-// router.post("/once", function(req, res){
-// 	KnownWords.create({}, function(err, f){
-// 		if(err)
-// 			console.log(err);
-// 	})
-// })
-
-router.post("/next", function(req, res){
+// Next route
+router.post("/next", middleware.isLoggedIn, function(req, res){
 	var query = {_id: req.user.uid};
 		Unknown.findById(query, function(err, foundUk){
 			// Check if clicked list and the right meaning of the words match
 			if(req.body.rIndex === req.body.clkIndex)
 			{	
 				var id = mongoose.Types.ObjectId(req.body.rId);
-				var obj1 = {
-					words: id
-				};
 				var count = foundUk.uWords[req.body.uIndex].count - 1;
 				foundUk.uWords[req.body.uIndex].count-=1;
 				foundUk.save();
 				if(count===0){
-					KnownWords.find({}, function(err, foundK){
+					var query1 = { _id: req.user.kid };
+					KnownWords.findById(query1, function(err, foundK){
 						if(err)
 							console.log(err);
-						foundK[0].kWords.push(obj1);
-						foundK[0].save();
+						foundK.words.push(id);
+						foundK.save();
 					})
 				}
 			}
 		})	
+	
 	res.redirect("/learnNplay");
 })
 

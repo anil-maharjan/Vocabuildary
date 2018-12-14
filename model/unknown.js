@@ -4,15 +4,12 @@ var mongoose = require("mongoose"),
 var unknownSchema = new mongoose.Schema({
 // uWords =  words
 	uWords: [{
-		_id: Schema.Types.ObjectId,
-		name: String,
-		meaning: String,
-		synonyms: String,
-		sentence: String,
-		count: Number,
-		noOfSentence: Number,
-		sentence: String
-	}]
+				_id: {
+						type: Schema.Types.ObjectId,
+						ref: "Words"
+					 },
+				count: Number
+			}]	
 })
 
 module.exports = mongoose.model("Unknown", unknownSchema);

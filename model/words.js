@@ -3,14 +3,10 @@ var mongoose = require("mongoose"),
 
 var wordsSchema = new mongoose.Schema({
 // uWords =  words
-		words: [{
-			_id: Schema.Types.ObjectId,
-			name: String,
-			meaning: String,
-			synonyms: String,
-			sentence: String
-		}]
-		
+	name: {type: String, required: true},
+	meaning: {type: String, required: true},
+	synonyms: String,
+	sentence: String
 })
 
 module.exports = mongoose.model("Words", wordsSchema);

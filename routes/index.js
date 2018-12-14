@@ -9,17 +9,15 @@ router.get("/", function(req, res){
 		res.render("index");
 })
 
-
-
 // To add unknown words
-router.post("/unknown", function(req, res){
-	Unknown.create({}, function(err, uWord){
-		if(err){
-			console.log(err);
-		}else{
-			res.redirect("/");
-		}
-	})
-})
+// router.post("/unknown", function(req, res){
+// 	Unknown.create({}, function(err, uWord){
+// 		if(err){
+// 			console.log(err);
+// 		}else{
+// 			res.redirect("/");
+// 		}
+// 	})
+// })
 
 module.exports = router;

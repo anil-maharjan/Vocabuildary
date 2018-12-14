@@ -6,7 +6,7 @@
 			<div class="my-5 p-3 xtraDesign" style="height:340px;">
 				<h4 class="text-center"><u> Click on the correct definition</u></h4>
 				<div class="ml-3 my-4">
-					<h5><%= R_name %> means > </h5>
+					<h5><%= rName %> means > </h5>
 
 					<% var i = 1 %>
 					<% arrWords.forEach(function(each){ %>
@@ -17,17 +17,17 @@
 
 				<form action="/learnNplay/next" method="POST">
 				<input type = "hidden" name="uIndex" value= "<%= uIndex %>">
-				<input type="hidden" name="rIndex" value = "<%= R_index %>" class="index">
+				<input type="hidden" name="rIndex" value = "<%= rIndex %>" class="index">
 				<input type = "hidden" name="clkIndex" value ="" class="clickedIndex"> 
-				<input type = "hidden" name="rId" value = "<%= R_id %>">
+				<input type = "hidden" name="rId" value = "<%= rId %>">
 				<button class="btn btn-primary mt-3 float-right"> Next </button>
 				</form>
 			</div>
 		</div>
 		<div class="secret float-right col-md-4 text-white">
 			<div class="mt-5 pt-5">
-				<h4>Word:- <%= R_name %> </h4>
-				<p>Definition:- <%= arrWords[R_index] %>
+				<h4>Word:- <%= rName %> </h4>
+				<p>Definition:- <%= arrWords[rIndex] %>
 			</div>
 		</div>	
 	</div>

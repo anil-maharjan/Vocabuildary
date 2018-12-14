@@ -14,12 +14,8 @@ var userSchema = new Schema({
 	kid:{
 		type: Schema.Types.ObjectId,
 		ref: "KnownWords"
-	},
-	// vocabulary id
-	vid:{
-		type: Schema.Types.ObjectId,
-		ref: "Words"
 	}
+	// vocabulary id
 })
 
 // Passport local mongoose defines the serialize and deserialize method for us so plugin is a method that does it for us

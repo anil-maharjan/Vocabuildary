@@ -1,4 +1,11 @@
 <% include ./partials/header %>
+	<% if(success && success.length>0){ %>
+	<div class="container">
+		<div class="alert alert-success p-0 pl-3">
+			<p> <%= success %> </p>
+		</div>
+	</div>
+	<% } %>
 
 	<div class="jumbotron">
 		<h1 class="display-4">Welcome to Vocabuildary! </h1>
@@ -10,7 +17,6 @@
 		</p>
 	</div>
 
-<% if(currentUser){ %>
 <div class="w-50 mx-auto">
 	<div class="mx-auto" style="display: table;">
 		<a href="/knownWords" class="btn btn-primary mr-1"> Known Words </a>
@@ -19,8 +25,5 @@
 		<h1 class="text-center"> Vocabulary </h1>
 	</div>
 </div>
-
-<% } %>
-
 
 <% include ./partials/footer %>
