@@ -20,7 +20,7 @@ router.post("/", middleware.isLoggedIn, function(req, res){
 		Unknown.findById(query, function(err, foundUk){
 			var uk = {
 				_id: newWord._id,
-				count: 1
+				count: 10
 			}
 			foundUk.uWords.push(uk);
 			foundUk.save();

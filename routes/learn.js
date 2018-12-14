@@ -9,32 +9,27 @@ var express	   = require("express"),
 	Unknown	   = require("../model/unknown");
 
 // Learn And Play route
-router.get("/", middleware.isLoggedIn, function(req, res){
+router.get("/", middleware.isLoggedIn, middleware.remKWords, function(req, res){
 	var rDef, rName, arrLength, randIndex, rand2, rId, i=0, arrWords=[];
 	var query = { _id: req.user.uid };
 	//If there are no words this line will give an error because words will be undefined solve this later
-	Unknown.findByIdAndUpdate(query, {$pull: {"uWords": {count: 0}}}, function(err, updatedUk){
-			if(err)
-				console.log(err);
-		Unknown.findById(query, function(err, ukWords){
- 		if(err){
- 			console.log(err);
- 		} 
-
-		arrLength = ukWords.uWords.length;
+	Unknown.find(query).populate('uWords._id').exec(function(err, newArr){
+		if(err){
+			console.log(err);
+		}
+		arrLength = newArr[0].uWords.length;
 		if(arrLength<4)
 			return res.redirect("/vocabuildary");
-		randIndex = Math.floor(Math.random()*arrLength);
- 		rand2 	  = Math.floor(Math.random()*4);
- 		rId 	  = ukWords.uWords[randIndex]._id;
- 		query1    = { _id: req.user.uid };
- 		Unknown.find(query1).populate('uWords._id').exec(function(err, newArr){
- 			rDef  = newArr[0].uWords[randIndex]._id.meaning;
- 			rName = newArr[0].uWords[randIndex]._id.name;
+		randIndex = randNum(arrLength);
+		var temp  = newArr[0].uWords[randIndex]._id;
+ 		rId 	  = temp._id;
+		rDef 	  = temp.meaning;
+		rName	  = temp.name;
+ 		rand2 	  = randNum(4);
 	 		Words.find({}, function(err, newWord){
 		 		while(arrWords.length<4){
- 					rand = Math.floor(Math.random()*arrLength); //get a random meaning from 0 - 9
-			 		def = newWord[rand].meaning;
+ 					rand = randNum(arrLength); //get a random number from 0 - size of the array
+			 		def  = newWord[rand].meaning;
 			 		if(def === rDef)
 			 			continue;
 			 		if(rand2===i)
@@ -47,9 +42,7 @@ router.get("/", middleware.isLoggedIn, function(req, res){
  			res.render("PlayAndLearn", {rName: rName, uIndex: randIndex, rId: rId, rIndex: rand2, arrWords: arrWords})
 			})
 		}) 
-	})	
 	})	 		
-})
 
 // Next route
 router.post("/next", middleware.isLoggedIn, function(req, res){
@@ -76,5 +69,10 @@ router.post("/next", middleware.isLoggedIn, function(req, res){
 	
 	res.redirect("/learnNplay");
 })
+
+// random number function
+function randNum(num){
+	return Math.floor(Math.random() * num);;
+}
 
 module.exports = router;
